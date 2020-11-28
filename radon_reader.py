@@ -61,7 +61,7 @@ def GetRadonValue():
     # Raise exception (will try get Radon value from RadonEye again) if received a very
     # high radon value or lower than 0. 
     # Maybe a bug on RD200 or Python BLE Lib?!
-    if ( RadonValue > 1000 ) or ( RadonValue < 0 ):
+    if ( RadonValue > 1000 ) or ( RadonValue <= 0 ):
         raise Exception("Very strange radon value. Debugging needed.")
 
     if args.becquerel:
