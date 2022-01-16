@@ -96,6 +96,7 @@ def GetRadonValue():
             ha_var = json.dumps({"radonvalue": "%0.2f" % (RadonValue)})
             clientMQTT.publish("environment/RADONEYE/"+REkey,ha_var,qos=1)
         else:
+            noha_var = round(RadonValue, 2)
             clientMQTT.publish("emon/RADONEYE/"+REkey,RadonValue,qos=1)
 
         if args.verbose and not args.silent:
