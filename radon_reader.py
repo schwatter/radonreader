@@ -22,7 +22,7 @@ parser.add_argument('-v','--verbose',action='store_true',help='Verbose mode', re
 parser.add_argument('-s','--silent',action='store_true',help='Output only radon value (without unit and timestamp)', required=False)
 parser.add_argument('-m','--mqtt',action='store_true',help='Also send radon value to a MQTT server', required=False)
 parser.add_argument('-ms',dest='mqtt_srv',help='MQTT server URL or IP address', required=False)
-parser.add_argument('-mp',dest='mqtt_port',help='MQTT server service port (Default: 1883)', required=False, default=1883)
+parser.add_argument('-mp',dest='mqtt_port',type=int,help='MQTT server service port (Default: 1883)', required=False, default=1883)
 parser.add_argument('-mu',dest='mqtt_user',help='MQTT server username', required=False)
 parser.add_argument('-mw',dest='mqtt_pw',help='MQTT server password', required=False)
 parser.add_argument('-ma',dest='mqtt_ha',action='store_true',help='Switch to Home Assistant MQTT output (Default: EmonCMS)', required=False)
@@ -46,7 +46,7 @@ def GetRadonValue():
         print ("Writing...")
     uuidWrite  = btle.UUID("00001524-1212-efde-1523-785feabcd123")
     RadonEyeWrite = RadonEyeService.getCharacteristics(uuidWrite)[0]
-    RadonEyeWrite.write(bytes("\x50"))
+    RadonEyeWrite.write(bytes("\x50","utf-8"))
 
     # Read from 3rd to 6th byte of 00001525-1212-efde-1523-785feabcd123
     if args.verbose and not args.silent:
@@ -97,7 +97,7 @@ def GetRadonValue():
             clientMQTT.publish("environment/RADONEYE/"+REkey,ha_var,qos=1)
         else:
             noha_var = round(RadonValue, 2)
-            clientMQTT.publish("emon/RADONEYE/"+REkey,RadonValue,qos=1)
+            clientMQTT.publish("emon/RADONEYE/"+REkey,noha_var,qos=1)
 
         if args.verbose and not args.silent:
             print ("OK")
