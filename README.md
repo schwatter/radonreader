@@ -10,11 +10,16 @@ This project provides a tool which allows users collect current radon data from 
 
 
 # Software Requeriments
-- Python 2.7.x 
+- Python 3.x.x
 - bluepy Python library
+<pre><code>sudo apt install python3-pip libglib2.0-dev
+sudo pip3 install bluepy</code></pre>
+- paho-mqtt
+<pre><code>sudo apt install python3-paho-mqtt</code></pre>
 
 
 # History
+- 0.4 - Added Python3 support
 - 0.3 - Added MQTT support
 
 
@@ -36,3 +41,8 @@ optional arguments:
   -mu MQTT_USER    MQTT server username
   -mw MQTT_PW      MQTT server password
   -ma              Enable Home Assistant MQTT output (Default: EmonCMS)</code></pre>
+  
+# Example
+</code></pre>
+python /opt/rr/radon_reader.py -a E2:63:C7:B0:CC:EE -s -b -ms 192.168.178.13 -m -mp 1883 -mu username -mw password
+</code></pre>
