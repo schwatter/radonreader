@@ -46,3 +46,9 @@ optional arguments:
 <pre><code>
 python /opt/rr/radon_reader.py -a E2:63:C7:B0:CC:EE -s -b -ms 192.168.178.13 -m -mp 1883 -mu username -mw password
 </code></pre>
+
+# Cronjob every 10 minutes
+
+<pre><code>
+*/10 * * * * python /opt/rr/radon_reader.py -a E2:63:C7:B0:CC:EE -s -b -ms 192.168.178.13 -m -mp 1883 -mu username -mw password
+</code></pre>
